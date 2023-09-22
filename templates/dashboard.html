@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<br>
+<h1>Dashboard</h1>
+<br>
+
+<div class="container">
+    <form method="GET" action="{{url_for('add.link')}}">
+        <button type="submit" class="btn btn-primary">Add new link</button>
+    </form>
+</div>
+
+
+<br>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-md align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">URL</th>
+                    <th scope="col">Short Link</th>
+                    <th scope="col">Number of visits</th>
+                    <th scope="col">Edit or delete</th>
+                </tr>
+            </thead>
+            
+            
+            <tbody>
+                {% for link in links %}
+                <tr>
+                    <td><a href="{{link.url}}">{{link.url}}</a></td>
+                    <td><a href="{{url_for('short.short_link' , token=link.token , _external = True)}}" target="_blank">{{url_for('short.short_link' , token=link.token , _external = True)}}</a></td>
+                    <td>{{link.visits}}</td>
+                    <td><a href="{{url_for('edit.link' , token=link.token )}}">Edit</a></td>
+                </tr>
+                {% endfor %}
+                
+                
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+{% endblock %}

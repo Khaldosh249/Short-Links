@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+Edit Link
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    
+    <form method="POST">
+            <div class="mb-3">
+                <label for="url" class="form-label">Long URL</label>
+                <input type="text" class="form-control" id="url" aria-describedby="emailHelp" name="long_url" value="{{link.url}}">
+            </div>
+
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">Short URL</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon3">https://e.sd/</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" name="token" value="{{link.token}}">
+                </div>
+                <div class="form-text" id="basic-addon4">Short Url</div>
+            </div>
+    
+    <button type="submit" class="btn btn-primary">Update</button>
+    
+</form>
+<br>
+<br>
+<form method="POST" action="{{url_for('delete.link' , token=link.token)}}">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+</div>
+
+{% endblock %}
