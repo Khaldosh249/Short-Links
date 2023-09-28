@@ -3,18 +3,18 @@
 
 {% block content %}
 
+<div class="container">
 <br>
 <h2>Reset Password</h2>
 <br>
-<div class="container">
     
     <form method="POST">
         <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required>
     </div>
     
-    <button type="submit" class="btn btn-primary">Send reset email</button>
+    <button type="submit" class="btn btn-primary">Send reset link</button>
     
 </form>
 

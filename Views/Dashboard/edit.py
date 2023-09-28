@@ -3,6 +3,11 @@ from flask_login import login_required,current_user
 from Models_app import Link
 from db import db
 
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 edit = Blueprint('edit',__name__)
 
 @edit.route('/edit/<token>',methods=['GET' , 'POST'])
@@ -18,9 +23,15 @@ def link(token):
     else:
         url = request.form.get("long_url")
         tok = request.form.get("token")
+        link = db.session.query(Link).filter_by(token=token).first()
+        if len(url) == 0 or len(token) == 0:
+            flash('Fill all fields' , 'info')
+            return render_template('edit.html' , link=link)
+        if tok in eval(os.getenv('reserved_words')):
+            flash("Can not use this token" , 'error')
+            return render_template('edit.html' , link=link)
         if url[:4] != "http":
             url = "https://" + url
-        link = db.session.query(Link).filter_by(token=token).first()
         if link.user_id == current_user.id:
             link.url = url
             link.token = tok

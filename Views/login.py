@@ -23,6 +23,9 @@ def login_page():
     else:
         email = request.form.get("email")
         password = request.form.get("password")
+        if len(email) == 0 or len(password) == 0:
+            flash('Fill all fields' , 'info')
+            return render_template('login.html')
         uu = db.session.query(User).filter_by(email=email).first()
         if uu:
             pass

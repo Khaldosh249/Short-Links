@@ -4,8 +4,18 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Home</h1>
-    <p class="lead">Welcome to our website, {{ current_user.username }}!</p>
+        <br>
+        <h1 class="h11">Home</h1>
+        {% if current_user.is_authenticated %}
+        <p class="lead h11">Welcome to our website, {{ current_user.name }}!</p>
+        {% else %}
+        <p class="lead h11">Welcome to our website!</p>
+        {% endif %}
+        <style>
+            .h11{
+                padding-left: 100px;
+            }
+        </style>
+        
     
 {% endblock %}
-```

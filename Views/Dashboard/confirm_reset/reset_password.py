@@ -22,6 +22,9 @@ def request_to_reset_password():
         return render_template('forgetpass.html')
     else:
         email = request.form.get('email')
+        if len(email) == 0:
+            flash('Fill all fields' , 'info')
+            return render_template('forgetpass.html')
         user = db.session.query(User).filter_by(email=email).first()
         if user is not None:
             link = url_for('reset_password.password_reset' , token =generate_password_token(user.email) , _external=True)
@@ -55,6 +58,9 @@ def password_reset(token):
         confirm = confirm_password_token(token)
         password = request.form.get('password')
         repassword = request.form.get('repassword')
+        if len(password) == 0 or len(repassword) == 0:
+            flash('Fill all fields' , 'info')
+            return render_template('resetpass.html')
         if confirm == False:
             flash("The link is invalid or has expired." , 'error')
             return redirect(url_for('login.login_page'))

@@ -19,7 +19,7 @@
 
         <div class="container-fluid">
 
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -47,6 +47,7 @@
                             <li><a class="dropdown-item" href="{{url_for('dashboard.dashboard')}}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{url_for('add.link')}}">Add link</a></li>
                             <li><a class="dropdown-item" href="{{url_for('reset_password.request_to_reset_password')}}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('delete_account_blp.delete_account')}}">Delete Account</a></li>
                             <li><a class="dropdown-item" href="{{url_for('login.logout_page')}}">Log out</a></li>
                         </ul>
                     </li>

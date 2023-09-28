@@ -4,11 +4,13 @@ Dashboard
 {% endblock %}
 {% block content %}
 
-<br>
-<h1>Dashboard</h1>
-<br>
 
 <div class="container">
+    
+    <br>
+    <h1>Dashboard</h1>
+    <br>
+    
     <form method="GET" action="{{url_for('add.link')}}">
         <button type="submit" class="btn btn-primary">Add new link</button>
     </form>

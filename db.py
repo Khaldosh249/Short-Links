@@ -7,3 +7,4 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 jwt = JWTManager()
 
+login_manager.login_view = 'login.login_page'
