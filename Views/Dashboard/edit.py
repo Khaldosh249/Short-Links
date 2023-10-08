@@ -27,6 +27,9 @@ def link(token):
         if len(url) == 0 or len(token) == 0:
             flash('Fill all fields' , 'info')
             return render_template('edit.html' , link=link)
+        if link.user_id != current_user.id:
+            flash('You are not authorized to edit this link' , 'error')
+            return redirect(url_for('dashboard.dashboard'))
         if tok in eval(os.getenv('reserved_words')):
             flash("Can not use this token" , 'error')
             return render_template('edit.html' , link=link)

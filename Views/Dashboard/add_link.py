@@ -20,6 +20,9 @@ def link():
         if len(url) == 0 or len(token) == 0:
             flash('Fill all fields' , 'info')
             return render_template('add.html' , url=url , token=token)
+        if '/' in token or '*' in token or '@' in token or '?' in token or ' ' in token:
+            flash('Cannot use / , * ,   , ? , @' , 'info')
+            return render_template('add.html' , url=url , token=token)
         if token in eval(os.getenv('reserved_words')):
             flash("Can not use this token" , 'error')
             return render_template('add.html' , url=url , token=token)

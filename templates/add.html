@@ -23,6 +23,19 @@ Add Link
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon3">https://e.sd/</span>
                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" name="token" value="{{token}}" required>
+                    <script>
+                        const inputElement = document.getElementById('basic-url');
+                        inputElement.addEventListener('input', function() {
+                        const inputValue = inputElement.value;
+                        const replacedValue = inputValue.replace(/ /g, '-');
+                        inputElement.value = replacedValue;
+                        });
+                        inputElement.addEventListener('input', function() {
+                            const inputValue = inputElement.value;
+                            const replacedValue = inputValue.replace(/[/*@?]/g, '-');
+                            inputElement.value = replacedValue;
+                            });
+                    </script>
                 </div>
                 <div class="form-text" id="basic-addon4">Short Url</div>
             </div>

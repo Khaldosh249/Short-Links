@@ -126,6 +126,20 @@
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                    {% else %}
+                    <div class="alert alert-warning alert-dismissible d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2 sss" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                        <style>
+                            .sss{
+                                width: 3em;
+                                height: 2em;
+                            }
+                        </style>
+                        <div>
+                            {{ message }}
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     {% endif %}
                     
                 {% endfor %}

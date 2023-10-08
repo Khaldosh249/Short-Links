@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+URL Location
+{% endblock %}
+{% block content %}
+
+<br>
+<br>
+<br>
+<div class="container">
+        <div class="card">
+            <div class="card-body">
+                Short Link is <br> <a href="{{short}}">{{short}}</a>
+                <br>
+                Destination URL is <br> <a href="{{url}}">{{url}}</a>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

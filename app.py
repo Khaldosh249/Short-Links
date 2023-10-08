@@ -1,5 +1,7 @@
-from flask import Flask,redirect,url_for,render_template,request
+from flask import Flask,redirect,url_for,render_template,request,session
 from db import db , login_manager , jwt
+
+from datetime import timedelta
 
 from Models_app import User, Link
 
@@ -56,7 +58,11 @@ def home():
 
 
 
-
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(days=1)
+    session.modified = True
 
 
 

@@ -14,3 +14,15 @@ def short_link(token):
         return redirect(link.url)
     else:
         return render_template("404.html")
+
+@short_blp.route('/<token>/l' , methods = ["GET"])
+def show_link(token):
+    link = db.session.query(Link).filter_by(token=token).first()
+    if link:
+        
+        short = url_for('short.short_link' , token=token , _external=True)
+        url = link.url
+        
+        return render_template('show_url.html' , url = url , short = short )
+    else:
+        return render_template("404.html")
