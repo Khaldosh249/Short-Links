@@ -24,3 +24,21 @@ def delete_account():
             flash('Wrong password' , 'error')
             return redirect(url_for('delete_account_blp.delete_account'))
     return render_template('delete_account.html')
+
+@delete_account_blp.route('/delete_account/<id>',methods=['POST'])
+@login_required
+def delete_account_api(id):
+    if current_user.is_admin == False:
+        flash('You are not authorized to access this page!' , 'error')
+        return redirect(url_for('dashboard.dashboard'))
+    user = db.session.query(User).get(id)
+    if user:
+        for link in user.links:
+            db.session.delete(link)
+        db.session.delete(user)
+        db.session.commit()
+        flash('Account has been deleted successfully' , 'success')
+        return redirect(url_for('admin.dashboard'))
+    else:
+        flash('User not found' , 'error')
+        return redirect(url_for('admin.dashboard'))

@@ -9,7 +9,7 @@ delete_blp = Blueprint('delete',__name__)
 @login_required
 def link(token):
     link = db.session.query(Link).filter_by(token=token).first()
-    if link.user_id == current_user.id:
+    if link.user_id == current_user.id or current_user.is_admin:
         db.session.delete(link)
         db.session.commit()
         flash('Link deleted successfully' , 'success')

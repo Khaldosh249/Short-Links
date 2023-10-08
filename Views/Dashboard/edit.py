@@ -15,7 +15,7 @@ edit = Blueprint('edit',__name__)
 def link(token):
     if request.method == "GET":
         link = db.session.query(Link).filter_by(token=token).first()
-        if link.user_id == current_user.id:
+        if link.user_id == current_user.id or current_user.is_admin:
             return render_template('edit.html' , link=link)
         else:
             flash('You are not authorized to edit this link' , 'error')
@@ -27,15 +27,18 @@ def link(token):
         if len(url) == 0 or len(token) == 0:
             flash('Fill all fields' , 'info')
             return render_template('edit.html' , link=link)
-        if link.user_id != current_user.id:
+        if link.user_id != current_user.id and not current_user.is_admin:
             flash('You are not authorized to edit this link' , 'error')
             return redirect(url_for('dashboard.dashboard'))
+        if '/' in tok or '*' in tok or '@' in tok or '?' in tok or ' ' in tok:
+            flash('Cannot use / , * ,   , ? , @' , 'info')
+            return render_template('edit.html' , link=link)
         if tok in eval(os.getenv('reserved_words')):
             flash("Can not use this token" , 'error')
             return render_template('edit.html' , link=link)
         if url[:4] != "http":
             url = "https://" + url
-        if link.user_id == current_user.id:
+        if link.user_id == current_user.id or current_user.is_admin:
             link.url = url
             link.token = tok
             db.session.commit()

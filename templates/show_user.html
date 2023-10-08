@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+Show User
+{% endblock %}
+{% block content %}
+
+<br>
+<br>
+
+<div class="container">
+    
+    <br>
+    <h3>Name : {{user.name}}</h1>
+    <br>
+    <h3>Email : {{user.email}}</h1>
+    <br>
+
+    <form method="POST" action="{{url_for('delete_account_blp.delete_account_api' , id=user.id)}}">
+        <input class="btn btn-danger" type="submit" value="Delete" />
+    </form>
+    
+</div>
+
+
+<br>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-md align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">URL</th>
+                    <th scope="col">Short Link</th>
+                    <th scope="col">Number of visits</th>
+                    <th scope="col">Edit or delete</th>
+                </tr>
+            </thead>
+            
+            
+            <tbody>
+                {% for link in user.links %}
+                <tr>
+                    <td><a href="{{link.url}}">{{link.url}}</a></td>
+                    <td><a href="{{url_for('short.short_link' , token=link.token , _external = True)}}" target="_blank">{{url_for('short.short_link' , token=link.token , _external = True)}}</a></td>
+                    <td>{{link.visits}}</td>
+                    <td><a href="{{url_for('edit.link' , token=link.token )}}">Edit</a></td>
+                </tr>
+                {% endfor %}
+                
+                
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+{% endblock %}

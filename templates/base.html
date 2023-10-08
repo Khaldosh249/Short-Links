@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
 
+    <link rel="icon" href="{{url_for('static' , filename='icon.png')}}">
 
 
 
@@ -19,7 +20,13 @@
 
         <div class="container-fluid">
 
-                <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+            <style>
+                .home{
+                    width: 3em;
+                    height: 3em;
+                }
+            </style>
+                <a class="navbar-brand" href="{{url_for('home')}}"><img src="{{url_for('static' , filename='icon.png')}}" class="home" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -44,6 +51,10 @@
                         Account
                         </a>
                         <ul class="dropdown-menu">
+                            {% if current_user.is_admin %}
+                                <li><a class="dropdown-item" href="{{url_for('admin.dashboard')}}">Admin Dashboard</a></li>
+                            {% endif %}
+                            
                             <li><a class="dropdown-item" href="{{url_for('dashboard.dashboard')}}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{url_for('add.link')}}">Add link</a></li>
                             <li><a class="dropdown-item" href="{{url_for('reset_password.request_to_reset_password')}}">Change Password</a></li>

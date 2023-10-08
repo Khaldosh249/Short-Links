@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+Admin
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    
+    <br>
+    <h1>Admin</h1>
+    <br>
+    
+</div>
+
+
+<br>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-md align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Number of links</th>
+                    <th scope="col">Email Activated</th>
+                    <th scope="col">Password Reset</th>
+                    <th scope="col">Show Links</th>
+                </tr>
+            </thead>
+            
+            
+            <tbody>
+                {% for user in all_users %}
+                <tr>
+                    <td >{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{len(user.links)}}</td>
+                    <td>{{user.email_confirm}}</td>
+                    <td>{{user.password_reset}}</td>
+                    <td><a href="{{url_for('admin.show' , id=user.id )}}">Show</a></td>
+                </tr>
+                {% endfor %}
+                
+                
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+{% endblock %}

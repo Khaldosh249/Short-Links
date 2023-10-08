@@ -33,6 +33,7 @@ from Views.signup import sign_blp
 from Views.Dashboard.confirm_reset.confirm_email import confirm_email_blp
 from Views.Dashboard.confirm_reset.reset_password import password_reset_blp
 from Views.Dashboard.delete_account import delete_account_blp
+from Views.Dashboard.admin import admin_blp
 app.register_blueprint(dash_blp,url_prefix="/portal")
 app.register_blueprint(add_link,url_prefix="/portal")
 app.register_blueprint(edit,url_prefix="/portal")
@@ -43,6 +44,7 @@ app.register_blueprint(short_blp)
 app.register_blueprint(confirm_email_blp,url_prefix="/portal")
 app.register_blueprint(password_reset_blp,url_prefix="/portal")
 app.register_blueprint(delete_account_blp,url_prefix="/portal")
+app.register_blueprint(admin_blp,url_prefix="/portal")
 
 
 @app.route('/',methods=['GET'])

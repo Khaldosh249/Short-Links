@@ -2,6 +2,10 @@ from db import db,login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash , check_password_hash
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User,user_id) #AdminUser.query.get(user_id)
@@ -16,6 +20,7 @@ class User(db.Model,UserMixin):
     password_hash = db.Column(db.String(500))
     email_confirm = db.Column(db.Boolean , default=False)
     password_reset = db.Column(db.Boolean , default=False)
+    is_admin = db.Column(db.Boolean)
     links = db.relationship('Link' , backref='user' , lazy=True)
     
     
@@ -31,6 +36,10 @@ class User(db.Model,UserMixin):
         self.name = name
         self.email = email
         self.password_hash = generate_password_hash(password)
+        if email[-10:] == '@eltech.sd' or email in eval(os.getenv('ADMIN_EMAILS')):
+            self.is_admin = True
+        else:
+            self.is_admin = False
     
     def check_password(self, password:str) -> bool:
         """Check for password to Log in"""

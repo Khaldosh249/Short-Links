@@ -23,7 +23,7 @@ def link():
         if '/' in token or '*' in token or '@' in token or '?' in token or ' ' in token:
             flash('Cannot use / , * ,   , ? , @' , 'info')
             return render_template('add.html' , url=url , token=token)
-        if token in eval(os.getenv('reserved_words')):
+        if token in eval(os.getenv('reserved_words')) and not current_user.is_admin:
             flash("Can not use this token" , 'error')
             return render_template('add.html' , url=url , token=token)
         if url[:4] != "http":
