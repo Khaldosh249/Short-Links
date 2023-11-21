@@ -4,6 +4,8 @@ __pycache__/
 
 .env
 
+database.db
+
 # C extensions
 *.so
 
