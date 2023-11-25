@@ -49,12 +49,6 @@ app.register_blueprint(admin_blp,url_prefix="/portal")
 
 @app.route('/',methods=['GET'])
 def home():
-    """ link = Link('111' , 'https://github.com' , '1')
-    db.session.add(link)
-    db.session.commit() """
-    """ user = db.session.query(User).filter_by(id=1).first()
-    
-    print(user.links)  """
     return render_template('index.html')
 
 
