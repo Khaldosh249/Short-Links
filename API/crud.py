@@ -18,11 +18,17 @@ def create_link():
     link_token = data.get("link_token")
     link_url = data.get("link_url")
     
-    check_link = db.session.query(Link).with_entities(Link.token).filter_by(link_token=link_token).first()
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        return {"message": "unvalid token"}  , 400
+    
+    check_link = db.session.query(Link).with_entities(Link.token).filter_by(token=link_token).first()
     if check_link:
         return {"message": "Link already exists"} , 400
     
-    link = Link(user_id=user_id , )
+    
+    link = Link(token=link_token , url=link_url ,user_id=user_id)
     db.session.add(link)
     db.session.commit()
-    return link.to_dict()
+    
+    return link.to_dict() , 201

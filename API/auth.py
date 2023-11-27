@@ -18,7 +18,7 @@ def login():
     
     user = db.session.query(User).filter_by(email=username).first()
     if user and user.check_password(password):
-        token = create_access_token(identity=username)
+        token = create_access_token(identity=user.id)
         return {"access_token": token}
     else:
         return {"message": "Invalid username or password"}, 401

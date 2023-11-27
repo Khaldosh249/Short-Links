@@ -67,4 +67,12 @@ class Link(db.Model):
     def visited(self):
         self.visits +=1
         return True
+    
+    def to_dict(self):
+        return {
+            'id':self.id,
+            'token':self.token,
+            'url':self.url,
+            'visits':self.visits
+            }
 
