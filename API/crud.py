@@ -32,3 +32,25 @@ def create_link():
     db.session.commit()
     
     return link.to_dict() , 201
+
+
+# Show URL
+@crud.route("/link/<string:token>" , methods=["GET"])
+@jwt_required()
+def show_link(token):
+    user_id = get_jwt_identity()
+    
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        return {"message": "unvalid token"}  , 400
+    
+    link = db.session.query(Link).filter_by(token=token).first()
+    if not link:
+        return {"message": "Link not found"} , 404
+    
+    if link.user_id != user_id:
+        return {"message": "unvalid token"} , 400
+    
+    return link.to_dict() , 200
+
+# Consume database usege
