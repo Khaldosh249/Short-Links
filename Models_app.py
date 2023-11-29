@@ -2,6 +2,8 @@ from db import db,login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash , check_password_hash
 
+from flask import url_for
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -72,6 +74,7 @@ class Link(db.Model):
         return {
             'id':self.id,
             'token':self.token,
+            'short_url' :url_for('short.short_link' , token=self.token , _external=True),
             'url':self.url,
             'visits':self.visits
             }

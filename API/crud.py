@@ -18,13 +18,14 @@ def create_link():
     link_token = data.get("link_token")
     link_url = data.get("link_url")
     
+    
     user = db.session.query(User).filter_by(id=user_id).first()
     if not user:
         return {"message": "unvalid token"}  , 400
     
     check_link = db.session.query(Link).with_entities(Link.token).filter_by(token=link_token).first()
     if check_link:
-        return {"message": "Link already exists"} , 400
+        return {"message": "Link token already exists"} , 409
     
     
     link = Link(token=link_token , url=link_url ,user_id=user_id)

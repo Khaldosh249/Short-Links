@@ -4,6 +4,7 @@ from flask_jwt_extended import create_access_token , get_jwt_identity , jwt_requ
 from db import db , jwt
 from Models_app import User , Link
 
+from datetime import datetime , timedelta
 
 auth = Blueprint("auth" , __name__)
 
@@ -16,9 +17,10 @@ def login():
     username = body.get("username")
     password = body.get("password")
     
+    
     user = db.session.query(User).filter_by(email=username).first()
     if user and user.check_password(password):
-        token = create_access_token(identity=user.id)
+        token = create_access_token(identity=user.id,expires_delta=timedelta(days=1))
         return {"access_token": token}
     else:
         return {"message": "Invalid username or password"}, 401
