@@ -17,7 +17,7 @@ def short_link(token):
 
 @short_blp.route('/<token>/l' , methods = ["GET"])
 def show_link(token):
-    link = db.session.query(Link).filter_by(token=token).first()
+    link = db.session.query(Link).with_entities(Link.url,Link.token).filter_by(token=token).first()
     if link:
         
         short = url_for('short.short_link' , token=token , _external=True)

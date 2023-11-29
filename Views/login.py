@@ -16,9 +16,6 @@ def login_page():
         return redirect(url_for("home"))
     
     elif request.method == "GET":
-        #u = User("123@eltech.sd" , "123")
-        #db.session.add(u)
-        #db.session.commit()
         return render_template("login.html")
     else:
         email = request.form.get("email")
