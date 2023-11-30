@@ -36,7 +36,7 @@ def confirm_email_page():
         return redirect(url_for("login.login_page"))
     
     if request.method == "GET":
-        send_email_verify(current_user.email , url_for('confirm_email.confirm_email' , token=generate_email_token(current_user.email) , _external=True))
+        res = send_email_verify(current_user.email , url_for('confirm_email.confirm_email' , token=generate_email_token(current_user.email) , _external=True))
         flash("A new confirmation email has been sent. confirm your email first then login.", "success")
         logout_user()
         return redirect(url_for('login.login_page'))
