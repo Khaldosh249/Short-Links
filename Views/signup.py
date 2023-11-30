@@ -22,9 +22,8 @@ def signup():
         user = User(name=name, email=email, password=password)
         db.session.add(user)
         db.session.commit()
-        try:
-            logout_user()
-        except:
-            pass
+        
+        login_user(user)
+        
         flash('Account created successfully' , 'success')
-        return redirect(url_for('login.login_page'))
+        return redirect(url_for('confirm_email.confirm_email_page'))
