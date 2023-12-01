@@ -54,4 +54,18 @@ def show_link(token):
     
     return link.to_dict() , 200
 
-# Consume database usege
+
+
+#all links
+@crud.route("/links" , methods=["GET"])
+@jwt_required()
+def show_all_links():
+    user_id = get_jwt_identity()
+    
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        return {"message": "unvalid token"}  , 400
+    
+    links = user.links
+    
+    return [link.to_dict() for link in links] , 200
