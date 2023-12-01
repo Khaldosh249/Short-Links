@@ -92,3 +92,32 @@ def delete_link(token):
     db.session.commit()
     
     return {"message": "Link deleted"} , 200
+
+
+#update link
+@crud.route("/link/<string:token>" , methods=["PUT"])
+@jwt_required()
+def update_link(token):
+    user_id = get_jwt_identity()
+    
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        return {"message": "unvalid token"}  , 400
+    
+    link = db.session.query(Link).filter_by(token=token).first()
+    if not link:
+        return {"message": "Link not found"} , 404
+    
+    if link.user_id != user_id:
+        return {"message": "unvalid token"} , 400
+    
+    data = request.get_json()
+    link_token = data.get("link_token")
+    link_url = data.get("link_url")
+    
+    link.token = link_token
+    link.url = link_url
+    db.session.add(link)
+    db.session.commit()
+    
+    return link.to_dict() , 200
