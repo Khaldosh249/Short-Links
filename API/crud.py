@@ -69,3 +69,26 @@ def show_all_links():
     links = user.links
     
     return [link.to_dict() for link in links] , 200
+
+
+#delete link
+@crud.route("/link/<string:token>" , methods=["DELETE"])
+@jwt_required()
+def delete_link(token):
+    user_id = get_jwt_identity()
+    
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if not user:
+        return {"message": "unvalid token"}  , 400
+    
+    link = db.session.query(Link).filter_by(token=token).first()
+    if not link:
+        return {"message": "Link not found"} , 404
+    
+    if link.user_id != user_id:
+        return {"message": "unvalid token"} , 400
+    
+    db.session.delete(link)
+    db.session.commit()
+    
+    return {"message": "Link deleted"} , 200
